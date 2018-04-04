@@ -30,6 +30,9 @@ export default {
         }
     }
   },
+  mounted(){
+      this.$store.dispatch('authenticate')
+  },
   methods: {
       login(){
           this.$store.dispatch('login', this.loginUser)

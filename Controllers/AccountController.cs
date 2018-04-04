@@ -74,8 +74,23 @@ namespace burger_shack.Controllers
         {
             var id = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Name)
                 .Select(c => c.Value).SingleOrDefault();
-                UserReturnModel user = _repo.GetUserById(id);
-                return _repo.UpdateAccount(user, userData);
+            UserReturnModel user = _repo.GetUserById(id);
+            return _repo.UpdateAccount(user, userData);
+        }
+
+        [HttpGet("authenticate")]
+        public UserReturnModel Authenticate()
+        {
+            var user = HttpContext.User;
+            var id = user.Identity.Name;
+            if (id == null)
+            {
+                return null;
+            }
+            else
+            {
+                return _repo.GetUserById(id);
+            }
         }
     }
 }

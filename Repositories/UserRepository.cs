@@ -74,7 +74,7 @@ namespace burger_shack.Repositories
             User user = _db.QueryFirstOrDefault<User>(@"
             SELECT * FROM users WHERE id = @Id
             ", new User { Id = id });
-            if (user == null) { throw new Exception("Something really bad happened"); }
+            // if (user == null) { throw new Exception("Something really bad happened"); }
             return new UserReturnModel()
             {
                 Id = user.Id,

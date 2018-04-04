@@ -25,7 +25,7 @@ export default new vuex.Store({
         user: {}
     },
     mutations: {
-        setUser(state, payload){
+        setUser(state, payload) {
             state.user = payload;
         }
     },
@@ -33,9 +33,8 @@ export default new vuex.Store({
         login({ commit, dispatch }, payload) {
             auth.post('login', payload)
                 .then(res => {
-                    console.log(res.data)
                     commit('setUser', res.data)
-                    router.push({name: "Home"})
+                    router.push({ name: "Home" })
                 })
                 .catch(err => {
                     console.error(err)
@@ -48,6 +47,30 @@ export default new vuex.Store({
                     delete res.data.Name
                     res.data.Password = payload.password
                     dispatch('login', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        authenticate({ commit, dispatch }, payload) {
+            auth.get('authenticate', payload)
+                .then(res => {
+                    commit('setUser', res.data)
+                    if (res.data == ""){
+                        router.push({ name: "Login" })
+                    } else {
+                        router.push({ name: "Home" })
+                    }
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        logout({ commit, dispatch }, payload) {
+            auth.delete('logout')
+                .then(res => {
+                    commit('setUser', {})
+                    router.push({name: "Login"})
                 })
                 .catch(err => {
                     console.error(err)
