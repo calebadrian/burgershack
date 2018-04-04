@@ -7,7 +7,6 @@ namespace burger_shack.Interfaces
     string Description { get; set; }
     double Price { get; set; }
     int KCal { get; set; }
-    string Ingredients { get; set; }
   }
 
 }
